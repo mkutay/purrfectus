@@ -1,14 +1,19 @@
+'use client';
+
+import { SettingsIcon } from 'lucide-react'
+import { useState } from 'react';
+
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from '@/components/ui/dropdown-menu'
 import { Button } from '@/components/ui/button'
-import { Select, SelectContent, SelectItem } from '@/components/ui/select'
-import { Switch } from '@/components/ui/switch'
 import { Card, CardContent } from '@/components/ui/card'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { Logo } from '@/components/logo'
-import { RefreshCcwIcon, SettingsIcon } from 'lucide-react'
 import { Timer } from '@/components/timer'
+import { Scramble } from '@/components/scramble'
 
 export default function Home() {
+  const [solveFinished, setSolveFinished] = useState(false);
+
   return (
     <div className="flex flex-col h-screen bg-background">
       <header className="flex items-center justify-between p-4 border-b bg-card">
@@ -73,19 +78,13 @@ export default function Home() {
         <div className="flex flex-col items-center justify-center gap-4 w-2/4">
           <Card className="p-6 flex-1 w-full">
             <CardContent className="h-full">
-              <Timer/>
+              <Timer solveFinished={solveFinished} setSolveFinished={setSolveFinished}/>
             </CardContent>
           </Card>
         </div>
         <Card className="p-4 w-1/4 h-full">
           <CardContent>
-            <div className="flex items-center justify-between">
-              <h2 className="text-lg font-bold">Scramble</h2>
-              <Button variant="ghost" size="icon">
-                <RefreshCcwIcon className="w-5 h-5 text-muted-foreground" />
-              </Button>
-            </div>
-            <div className="mt-4 text-2xl font-bold text-center">R U R' U' F' U F</div>
+            <Scramble solveFinished={solveFinished} setSolveFinished={setSolveFinished}/>
           </CardContent>
         </Card>
       </main>

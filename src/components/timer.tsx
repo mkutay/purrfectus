@@ -9,7 +9,13 @@ import { cn } from '@/lib/utils';
 
 const azeret = Azeret_Mono({ subsets: ['latin'] });
 
-export function Timer() {
+export function Timer({
+  solveFinished,
+  setSolveFinished,
+}: {
+  solveFinished: boolean,
+  setSolveFinished: React.Dispatch<React.SetStateAction<boolean>>,
+}) {
   const [value, setValue] = useState({
     ms: 0,
     s: 0,
@@ -22,7 +28,6 @@ export function Timer() {
   }), []);
   const stopwatch = useTimer({delay: 1, startImmediately: false}, callback);
   const [isSpaceDown, setIsSpaceDown] = useState(false);
-  const [solveFinished, setSolveFinished] = useState(false);
 
   const keyDown = (e: React.KeyboardEvent<HTMLButtonElement>) => {
     if (e.key === ' ') {
