@@ -6,15 +6,20 @@ import { Azeret_Mono } from 'next/font/google';
 
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
+import { setRandomScramble } from '@/lib/scrambleActions';
 
 const azeret = Azeret_Mono({ subsets: ['latin'] });
 
 export function Timer({
   solveFinished,
   setSolveFinished,
+  scramble,
+  setScramble,
 }: {
   solveFinished: boolean,
   setSolveFinished: React.Dispatch<React.SetStateAction<boolean>>,
+  scramble: string,
+  setScramble: React.Dispatch<React.SetStateAction<string>>,
 }) {
   const [value, setValue] = useState({
     ms: 0,
@@ -35,6 +40,7 @@ export function Timer({
       
       if (stopwatch.isRunning()) {
         stopwatch.stop();
+        setRandomScramble(setScramble);
         setSolveFinished(true);
       }
 

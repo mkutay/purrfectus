@@ -1,21 +1,18 @@
 'use client';
 
 import { RefreshCcwIcon } from 'lucide-react';
-import { randomScrambleForEvent } from 'cubing/scramble'; 
 import { useState } from 'react';
 
 import { Button } from '@/components/ui/button';
+import { setRandomScramble } from '@/lib/scrambleActions';
 
-export async function Scramble({
-  solveFinished,
-  setSolveFinished,
+export function Scramble({
+  scramble,
+  setScramble,
 }: {
-  solveFinished: boolean,
-  setSolveFinished: React.Dispatch<React.SetStateAction<boolean>>,
+  scramble: string,
+  setScramble: React.Dispatch<React.SetStateAction<string>>,
 }) {
-  const [scramble, setScramble] = useState('');
-  setScramble((await randomScrambleForEvent('333')).toString());
-
   return (
     <div>
       <div className="flex items-center justify-between">
@@ -23,12 +20,12 @@ export async function Scramble({
         <Button
           variant="ghost"
           size="icon"
-          onClick={async () => setScramble((await randomScrambleForEvent('333')).toString())}
+          onClick={() => setRandomScramble(setScramble)}
         >
           <RefreshCcwIcon className="w-5 h-5 text-muted-foreground" />
         </Button>
       </div>
-      <div className="mt-4 text-2xl font-bold text-center">{scramble}</div>
+      <div suppressHydrationWarning className="mt-4 text-2xl font-bold text-center">{scramble}</div>
     </div>
   )
 }

@@ -10,9 +10,17 @@ import { ScrollArea } from '@/components/ui/scroll-area'
 import { Logo } from '@/components/logo'
 import { Timer } from '@/components/timer'
 import { Scramble } from '@/components/scramble'
+import { setRandomScramble } from '@/lib/scrambleActions';
 
 export default function Home() {
   const [solveFinished, setSolveFinished] = useState(false);
+  const [scramble, setScramble] = useState('');
+  const [firstLoad, setFirstLoad] = useState(false);
+
+  if (firstLoad === false) {
+    setRandomScramble(setScramble);
+    setFirstLoad(true);
+  }
 
   return (
     <div className="flex flex-col h-screen bg-background">
@@ -78,13 +86,21 @@ export default function Home() {
         <div className="flex flex-col items-center justify-center gap-4 w-2/4">
           <Card className="p-6 flex-1 w-full">
             <CardContent className="h-full">
-              <Timer solveFinished={solveFinished} setSolveFinished={setSolveFinished}/>
+              <Timer
+                solveFinished={solveFinished}
+                setSolveFinished={setSolveFinished}
+                scramble={scramble}
+                setScramble={setScramble}
+              />
             </CardContent>
           </Card>
         </div>
         <Card className="p-4 w-1/4 h-full">
           <CardContent>
-            <Scramble solveFinished={solveFinished} setSolveFinished={setSolveFinished}/>
+            <Scramble
+              scramble={scramble}
+              setScramble={setScramble}
+            />
           </CardContent>
         </Card>
       </main>
